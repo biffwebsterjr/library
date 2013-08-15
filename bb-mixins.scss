@@ -1,0 +1,53 @@
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+	-webkit-box-shadow: #{$inset} $top $left $blur $color;
+	-moz-box-shadow: #{$inset} $top $left $blur $color;
+	box-shadow: #{$inset} $top $left $blur $color;
+}
+
+@mixin vertical-box-shadow($color, $inset:"") {
+	-webkit-box-shadow: #{$inset} 0 8px 8px -8px $color, #{$inset} 0 -8px 8px -8px $color;
+	-moz-box-shadow: #{$inset} 0 8px 8px -8px $color, #{$inset} 0 -8px 8px -8px $color;
+	box-shadow: #{$inset} 0 8px 8px -8px $color, #{$inset} 0 -8px 8px -8px $color;
+}
+
+@mixin fontface($type) {
+	font-family: "Kievit #{$type}";
+}
+
+@function adjustedFontSize($em, $factor) {
+  @return $em * $factor;
+}
+
+@mixin respond-to($point, $direction:"down") {
+	@if $direction == "down" {
+		@media screen and (max-width: #{$point}px) {
+			@content;
+		}
+  } @else {
+  	@media screen and (min-width: #{$point}px) {
+			@content;
+		}
+  }
+}
+
+@mixin fontsize($em, $line-height:1em) {
+	
+	@include respond-to(1281,up) { font-size: adjustedFontSize($em, 1); }
+	@include respond-to(1280) { font-size: adjustedFontSize($em, 0.95); }
+	@include respond-to(1120) { font-size: adjustedFontSize($em, 0.9); }
+	@include respond-to(960) { font-size: adjustedFontSize($em, 0.85); }
+	@include respond-to(800) { font-size: adjustedFontSize($em, 0.8); }
+	@include respond-to(640) { font-size: adjustedFontSize($em, 1); }
+	@include respond-to(480) { font-size: adjustedFontSize($em, 0.8); }
+	line-height: $line-height;
+}
+
+$calloutOneColor: #9cd6f3;
+$calloutTwoColor: #fff;
+$calloutThreeColor: #e3d2ae;
